@@ -51,15 +51,6 @@
 
 		</div>
 	</nav>
-	<div class="container">
-		<div class="jumbotron" >
-			<div class="container" >
-				<h1>웹 사이트 소개</h1>
-				<p> 어쩌구 </p>
-				<p><a class="btn btn-primary btn-pull" href="#" role="button"> 자세히 알아보기 </a></p>
-			</div>
-		</div>
-	</div>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/bootstrap.js"> </script>
 </body>
