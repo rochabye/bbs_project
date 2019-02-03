@@ -1,5 +1,11 @@
 package com.bbs.bbs_pjt.user.dao;
 
-public interface IUserDao {
+import com.bbs.bbs_pjt.user.User;
 
+public interface IUserDao {
+	int userInsert( String userID, String userPassword, String userName, String userGender, String userEmail );
+	User userSelect( String userID, String userPassword );
+	void userUpdate();
+	void userDelete();
+	
 }
