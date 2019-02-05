@@ -23,9 +23,7 @@ public class UserDao implements IUserDao{
 			String dbPassword="root";
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
-			System.out.println( " DB COnnected " );
 		} catch ( Exception e ) {
-			System.out.println( " DB is not COnnected  " + e.getMessage() + e.getCause()  );
 			e.printStackTrace();
 		}
 	}
