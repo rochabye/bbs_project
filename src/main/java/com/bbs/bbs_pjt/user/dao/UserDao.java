@@ -23,7 +23,9 @@ public class UserDao implements IUserDao{
 			String dbPassword="root";
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+			System.out.println( " DB COnnected " );
 		} catch ( Exception e ) {
+			System.out.println( " DB is not COnnected  " + e.getMessage() + e.getCause()  );
 			e.printStackTrace();
 		}
 	}
@@ -43,9 +45,25 @@ public class UserDao implements IUserDao{
 		}
 		return -1;
 	}
-	public User userSelect( String userID, String userPassword ) {
-		User user = null;
-		return user;
+	public int userSelect( String userID, String userPassword ) {
+		String SQL = "SELECT userPassword FROM USER WHERE userID = ?";
+
+		try {
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, userID );
+			rs = pstmt.executeQuery();
+			if ( rs.next() ) {
+				if ( rs.getString(1).equals( userPassword ) ) {
+					return 1; // login success 
+				}
+				else
+					return -1; // password not correct 
+			}
+			return -1; // no id 
+		} catch( Exception e) {
+			e.printStackTrace();
+		}
+		return -2;
 	}
 	public void userUpdate() {
 		
