@@ -87,7 +87,7 @@
 					%>
 					<tr>
 						<td><%= list.get(i).getBbsID() %></td>
-						<td><a href="view.jsp?bbsID=<%=list.get(i).getBbsID() %>"> <%= list.get(i).getBbsTitle().replaceAll( "<", "&lt;" ).replaceAll( ">", "&gt;" ).replaceAll( " ", "&nbsp;" ).replaceAll( "\n", "<br>") %></a></td>
+						<td><a href="bbs_view?bbsID=<%=list.get(i).getBbsID() %>" value="<%=list.get(i).getBbsID() %>"> <%= list.get(i).getBbsTitle().replaceAll( "<", "&lt;" ).replaceAll( ">", "&gt;" ).replaceAll( " ", "&nbsp;" ).replaceAll( "\n", "<br>") %></a></td>
 						<td><%= list.get(i).getUserID() %></td>
 						<td><%= list.get(i).getBbsDate().substring(0, 11) + list.get(i).getBbsDate().substring(11,13) + "시" + list.get(i).getBbsDate().substring(14,16) + "분" %></td>
 					</tr>
