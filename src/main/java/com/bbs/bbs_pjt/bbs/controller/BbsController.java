@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bbs.bbs_pjt.bbs.Bbs;
 import com.bbs.bbs_pjt.bbs.dao.BbsDao;
@@ -23,4 +25,12 @@ public class BbsController {
 		model.addAttribute( "bbs_list", list );
 		return "bbs";
 	}
+	
+	@RequestMapping(value = "/bbs_view", method = RequestMethod.GET, params = {"bbsID"})
+	public String view( Model model, @RequestParam(value="bbsID", required = true) int bbsID) {
+		BbsDao dao = new BbsDao();
+		model.addAttribute( "bbs", dao.getBbs( bbsID ) );
+		return "bbs_view";
+	}
+	
 }
