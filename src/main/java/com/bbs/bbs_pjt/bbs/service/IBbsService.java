@@ -1,11 +1,17 @@
 package com.bbs.bbs_pjt.bbs.service;
 
+import java.util.ArrayList;
+
+import com.bbs.bbs_pjt.bbs.Bbs;
+
 public interface IBbsService {
 	
 	String getDate();
 	int getNext();
-	int bbsWrite( String bbsTitle, String userID, String bbsContent );
+	ArrayList< Bbs > getList( int pageNumber );
+	Bbs getBbs( int bbsID );
+	int Write( String bbsTitle, String userID, String bbsContent );
 
-	void bbsUpdate();
-	void bbsDelete();
+	void Update();
+	void Delete();
 }
