@@ -99,6 +99,14 @@
 				</tbody>
 			</table>
 			<a href="bbs" class="btn btn-primary" > 목록 </a>
+			<%
+				if ( userID != null && userID.equals( bbs.getUserID() ) ) {
+			%>
+					<a href="update?bbsID=<%= bbs.getBbsID() %>" class="btn btn-primary"> 수정</a>
+					<a onclick="return confirm('정말로 삭제하시겠습니까?')" href="delete?bbsID=<%= bbs.getBbsID() %>" class="btn btn-primary"> 삭제 </a>			
+			<%
+				}
+			%>
 		</div>
 	</div>
 	

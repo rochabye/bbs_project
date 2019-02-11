@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.bbs.bbs_pjt.bbs.Bbs" %>
-<%@ page import="java.util.ArrayList" %>
+    <%@ page import="java.io.PrintWriter" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,8 +29,8 @@
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		<ul class="nav navbar-nav" >
-			<li><a href="main">메인</a></li>
-			<li class = "active" ><a href="bbs">게시판</a></li>
+			<li class = "active" ><a href="main">메인</a></li>
+			<li><a href="bbs">게시판</a></li>
 		</ul>
 		<% 
 		if ( userID == null ) 
@@ -59,7 +58,7 @@
 				data-toggle="dropdown" role="button" aria-haspopup="true"
 				aria-expanded="false" >회원관리 <span class="caret"></span></a>
 			<ul class="dropdown-menu">
-				<li><a href="logout">로그아웃</a></li>
+				<li><a href="logoutAction">로그아웃</a></li>
 			</ul>
 			</li>
 		</ul>
@@ -68,39 +67,16 @@
 		%>
 		</div>
 	</nav>
-		<div class="container" >
-		<div class="row">
-			<table class="table table-striped" style="text-align:center; border: 1px solid #dddddd" >
-				<thead>
-					<tr>
-						<th style="background-color: #eeeeee; text-align: center;"> 번호 </th>
-						<th style="background-color: #eeeeee; text-align: center;"> 제목 </th>
-						<th style="background-color: #eeeeee; text-align: center;"> 작성자 </th>
-						<th style="background-color: #eeeeee; text-align: center;"> 작성일 </th>
-					</tr>
-					
-				</thead>
-				<tbody>
-					<%
-						ArrayList<Bbs> list = (ArrayList<Bbs>)request.getAttribute("bbsList");
-						for( int i = 0; i < list.size(); ++i ){
-					%>
-					<tr>
-						<td><%= list.get(i).getBbsID() %></td>
-						<td><a href="bbs_view?bbsID=<%=list.get(i).getBbsID() %>" value="<%=list.get(i).getBbsID() %>"> <%= list.get(i).getBbsTitle().replaceAll( "<", "&lt;" ).replaceAll( ">", "&gt;" ).replaceAll( " ", "&nbsp;" ).replaceAll( "\n", "<br>") %></a></td>
-						<td><%= list.get(i).getUserID() %></td>
-						<td><%= list.get(i).getBbsDate().substring(0, 11) + list.get(i).getBbsDate().substring(11,13) + "시" + list.get(i).getBbsDate().substring(14,16) + "분" %></td>
-					</tr>
-					<% 
-						}
-					%> 
-				</tbody>
-			</table>
-			<a href="write.jsp" class="btn btn-primary pull-right"> 글쓰기</a>
-			
+	<div class ="container" >
+		<div class="col-lg-4"></div>
+		<div class="col-lg-4">
+			<div class="jumbotron" style="padding-top:20px;" >
+				<h3 style="text-align: center;" > 글이 수정되었습니다.  </h3>
+				<a href="bbs" type="button"  class="btn btn-primary form-control" > 게시판으로 이동 </a> 
+			</div>
 		</div>
+		<div class="col-lg-4"></div>
 	</div>
-	
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/bootstrap.js"> </script>
 </body>
