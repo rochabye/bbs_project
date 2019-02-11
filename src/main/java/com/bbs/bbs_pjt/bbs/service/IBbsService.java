@@ -10,6 +10,6 @@ public interface IBbsService {
 	Bbs getBbs( int bbsID );
 	int Write( String bbsTitle, String userID, String bbsContent );
 
-	void Update( int bbsID, String bbsTitle, String bbsContent );
+	int Update( int bbsID, String bbsTitle, String bbsContent );
 	void Delete( int bbsID );
 }

@@ -21,8 +21,8 @@ public class BbsService implements IBbsService {
 	}
 
 	@Override
-	public void Update( int bbsID, String bbsTitle, String bbsContent ) {
-		dao.bbsUpdate( bbsID, bbsTitle, bbsContent );
+	public int Update( int bbsID, String bbsTitle, String bbsContent ) {
+		return dao.bbsUpdate( bbsID, bbsTitle, bbsContent );
 	}
 
 	@Override
