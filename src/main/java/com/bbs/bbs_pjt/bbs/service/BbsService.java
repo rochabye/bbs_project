@@ -15,33 +15,22 @@ public class BbsService implements IBbsService {
 	BbsDao dao;
 
 	@Override
-	public String getDate() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int getNext() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public int Write(String bbsTitle, String userID, String bbsContent) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = dao.bbsInsert( bbsTitle, userID, bbsContent );	
+		return result;
 	}
 
 	@Override
-	public void Update() {
-		// TODO Auto-generated method stub
-		
+	public void Update( int bbsID, String bbsTitle, String bbsContent ) {
+		dao.bbsUpdate( bbsID, bbsTitle, bbsContent );
 	}
 
 	@Override
-	public void Delete() {
-		// TODO Auto-generated method stub
-		
+	public void Delete( int bbsID ) {
+		if ( bbsID < 0 ) {
+			return;
+		}
+		dao.bbsDelete( bbsID );
 	}
 
 	@Override

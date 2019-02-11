@@ -5,13 +5,11 @@ import java.util.ArrayList;
 import com.bbs.bbs_pjt.bbs.Bbs;
 
 public interface IBbsService {
-	
-	String getDate();
-	int getNext();
+
 	ArrayList< Bbs > getList( int pageNumber );
 	Bbs getBbs( int bbsID );
 	int Write( String bbsTitle, String userID, String bbsContent );
 
-	void Update();
-	void Delete();
+	void Update( int bbsID, String bbsTitle, String bbsContent );
+	void Delete( int bbsID );
 }
