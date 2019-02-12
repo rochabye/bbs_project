@@ -1,6 +1,8 @@
 package com.bbs.bbs_pjt.bbs.controller;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +33,25 @@ public class BbsController {
 		model.addAttribute( "bbs", service.getBbs( bbsID ) );
 		return "bbs_view";
 	}
+	
+	@RequestMapping(value = "/write", method = RequestMethod.GET )
+	public String write( Model model, Bbs bbs, HttpSession session ) {
+		
+		return "write";
+	}
+	
+	@RequestMapping(value = "/writeAction", method = RequestMethod.POST )
+	public String writeAction( Model model, Bbs bbs, HttpSession session ) {
+
+		int result = service.Write( (String)session.getAttribute( "userID" ), bbs.getBbsTitle(), bbs.getBbsContent() );
+		if ( result == -1 ) {
+			model.addAttribute("msg", "오류가 있습니다."); 
+			model.addAttribute("url", "wirte"); 
+			return "redirect";
+		}
+		return "writeOK";
+	}
+	
 	
 	@RequestMapping(value = "/update", method = RequestMethod.GET, params = {"bbsID"})
 	public String update( Model model, @RequestParam(value="bbsID", required = true) int bbsID) {
