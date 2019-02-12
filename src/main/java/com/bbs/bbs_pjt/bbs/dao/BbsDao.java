@@ -31,7 +31,7 @@ public class BbsDao implements IBbsDao {
 	}
 
 	@Override
-	public int bbsInsert( String bbsTitle, String userID, String bbsContent ) {
+	public int bbsInsert( String userID, String bbsTitle, String bbsContent ) {
 		String SQL = "INSERT INTO BBS VALUES ( ?, ?, ?, ?, ?, ? )";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);

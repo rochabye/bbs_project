@@ -15,8 +15,8 @@ public class BbsService implements IBbsService {
 	BbsDao dao;
 
 	@Override
-	public int Write(String bbsTitle, String userID, String bbsContent) {
-		int result = dao.bbsInsert( bbsTitle, userID, bbsContent );	
+	public int Write( String userID, String bbsTitle, String bbsContent) {
+		int result = dao.bbsInsert( userID, bbsTitle, bbsContent );	
 		return result;
 	}
 

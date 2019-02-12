@@ -8,7 +8,7 @@ public interface IBbsService {
 
 	ArrayList< Bbs > getList( int pageNumber );
 	Bbs getBbs( int bbsID );
-	int Write( String bbsTitle, String userID, String bbsContent );
+	int Write( String userID, String bbsTitle, String bbsContent);
 
 	int Update( int bbsID, String bbsTitle, String bbsContent );
 	void Delete( int bbsID );

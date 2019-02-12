@@ -6,7 +6,7 @@ import com.bbs.bbs_pjt.bbs.Bbs;
 
 public interface IBbsDao {
 
-	int bbsInsert( String bbsTitle, String userID, String bbsContent );
+	int bbsInsert( String userID, String bbsTitle, String bbsContent );
 	int bbsUpdate( int bbsID, String bbsTitle, String bbsContent );
 	int bbsDelete( int bbsID);
 	
