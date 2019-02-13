@@ -1,6 +1,7 @@
 package com.bbs.bbs_pjt.bbs.dao;
 
 import java.sql.Connection;
+import com.bbs.bbs_pjt.commons.paging.Criteria;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -173,5 +174,35 @@ public class BbsDao implements IBbsDao {
 		}
 		return ""; // error 
 	}
-	
+
+	@Override
+	public ArrayList<Bbs> selectList( Criteria cri ) {
+
+		String SQL = "SELECT * FROM BBS WHERE 1=1 AND bbsID > 0 AND bbsAvailable = 1 ORDER BY bbsID DESC LIMIT ?, ?";
+		ArrayList<Bbs> list = new ArrayList<Bbs>();
+		
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt( 1, cri.getPageStart() );
+			pstmt.setInt( 1, cri.getPerPageNum() );
+			rs = pstmt.executeQuery();
+			while( rs.next() ) {
+				Bbs bbs = new Bbs();
+				bbs.setBbsID(rs.getInt(1));
+				bbs.setBbsTitle(rs.getString(2));
+				bbs.setUserID(rs.getString(3));
+				bbs.setBbsDate(rs.getString(4));
+				bbs.setBbsContent(rs.getString(5));
+				bbs.setBbsAvailable(rs.getInt(6));
+				list.add(bbs);
+			}
+		} catch ( Exception e ) {
+			e.printStackTrace();
+		}
+		return list; 
+	}
+	@Override
+	public int selectOne( Criteria cri) {
+		return 1;
+	}
 }

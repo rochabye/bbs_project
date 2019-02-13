@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.bbs.bbs_pjt.bbs.Bbs;
 import com.bbs.bbs_pjt.bbs.dao.BbsDao;
+import com.bbs.bbs_pjt.commons.paging.Criteria;
 
 @Service
 public class BbsService implements IBbsService {
@@ -47,5 +48,15 @@ public class BbsService implements IBbsService {
 			return null;
 		}
 		return dao.getBbs( bbsID );
+	}
+
+	public ArrayList< Bbs > listCriteria( Criteria criteria ) {
+		
+		return dao.selectList( criteria );
+	}
+
+	public int listCountCriteria( Criteria criteria ) {
+		
+		return dao.selectOne( criteria );
 	}
 }

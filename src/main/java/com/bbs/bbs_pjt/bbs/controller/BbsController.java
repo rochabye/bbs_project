@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.bbs.bbs_pjt.bbs.Bbs;
 import com.bbs.bbs_pjt.bbs.dao.BbsDao;
 import com.bbs.bbs_pjt.bbs.service.BbsService;
+import com.bbs.bbs_pjt.commons.paging.Criteria;
+import com.bbs.bbs_pjt.commons.paging.PageMaker;
 
 @Controller
 public class BbsController {
@@ -75,6 +78,21 @@ public class BbsController {
 
 		service.Delete( bbsID );
 		return "deleteOK";
+	}
+	
+	@RequestMapping( value = "/listPage", method = RequestMethod.GET ) 
+		public String listPage( @ModelAttribute( "cri" ) Criteria cri, Model model ) throws Exception{
+		
+			model.addAttribute( "list", service.listCriteria( cri ) );
+			
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCriteria( cri );
+			pageMaker.setTotalCount( service.listCountCriteria( cri ) );
+			
+			model.addAttribute( "pageMaker", pageMaker );
+			
+			return "bbs";
+		
 	}
 	
 }
