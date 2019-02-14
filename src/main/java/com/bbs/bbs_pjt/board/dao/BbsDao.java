@@ -1,6 +1,8 @@
-package com.bbs.bbs_pjt.bbs.dao;
+package com.bbs.bbs_pjt.board.dao;
 
 import java.sql.Connection;
+
+import com.bbs.bbs_pjt.board.Bbs;
 import com.bbs.bbs_pjt.commons.paging.Criteria;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,8 +10,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import org.springframework.stereotype.Repository;
-
-import com.bbs.bbs_pjt.bbs.Bbs;
 
 @Repository
 public class BbsDao implements IBbsDao {

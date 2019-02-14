@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.bbs.bbs_pjt.bbs.Bbs" %>
+<%@ page import="com.bbs.bbs_pjt.board.Bbs" %>
 <%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html>

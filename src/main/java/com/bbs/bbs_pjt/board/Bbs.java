@@ -1,4 +1,4 @@
-package com.bbs.bbs_pjt.bbs;
+package com.bbs.bbs_pjt.board;
 
 public class Bbs {
 	

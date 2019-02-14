@@ -1,8 +1,8 @@
-package com.bbs.bbs_pjt.bbs.service;
+package com.bbs.bbs_pjt.board.service;
 
 import java.util.ArrayList;
 
-import com.bbs.bbs_pjt.bbs.Bbs;
+import com.bbs.bbs_pjt.board.Bbs;
 import com.bbs.bbs_pjt.commons.paging.Criteria;
 
 public interface IBbsService {

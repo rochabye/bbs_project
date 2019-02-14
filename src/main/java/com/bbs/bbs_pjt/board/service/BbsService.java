@@ -1,12 +1,12 @@
-package com.bbs.bbs_pjt.bbs.service;
+package com.bbs.bbs_pjt.board.service;
 
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bbs.bbs_pjt.bbs.Bbs;
-import com.bbs.bbs_pjt.bbs.dao.BbsDao;
+import com.bbs.bbs_pjt.board.Bbs;
+import com.bbs.bbs_pjt.board.dao.BbsDao;
 import com.bbs.bbs_pjt.commons.paging.Criteria;
 
 @Service

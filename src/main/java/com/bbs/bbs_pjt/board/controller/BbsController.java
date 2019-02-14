@@ -1,4 +1,4 @@
-package com.bbs.bbs_pjt.bbs.controller;
+package com.bbs.bbs_pjt.board.controller;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.bbs.bbs_pjt.bbs.Bbs;
-import com.bbs.bbs_pjt.bbs.dao.BbsDao;
-import com.bbs.bbs_pjt.bbs.service.BbsService;
+import com.bbs.bbs_pjt.board.Bbs;
+import com.bbs.bbs_pjt.board.dao.BbsDao;
+import com.bbs.bbs_pjt.board.service.BbsService;
 import com.bbs.bbs_pjt.commons.paging.Criteria;
 import com.bbs.bbs_pjt.commons.paging.PageMaker;
 

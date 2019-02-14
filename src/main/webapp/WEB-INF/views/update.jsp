@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.io.PrintWriter" %>
-<%@ page import="com.bbs.bbs_pjt.bbs.Bbs" %>
+<%@ page import="com.bbs.bbs_pjt.board.Bbs" %>
 <!DOCTYPE html>
 <html>
 <head>
