@@ -30,7 +30,7 @@
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		<ul class="nav navbar-nav" >
 			<li class = "active" ><a href="main">메인</a></li>
-			<li><a href="bbs">게시판</a></li>
+			<li><a href="board">게시판</a></li>
 		</ul>
 		<% 
 		if ( userID == null ) 
@@ -72,7 +72,7 @@
 		<div class="col-lg-4">
 			<div class="jumbotron" style="padding-top:20px;" >
 				<h3 style="text-align: center;" > 글이 삭제되었습니다.  </h3>
-				<a href="bbs" type="button"  class="btn btn-primary form-control" > 게시판으로 이동 </a> 
+				<a href="board" type="button"  class="btn btn-primary form-control" > 게시판으로 이동 </a> 
 			</div>
 		</div>
 		<div class="col-lg-4"></div>

@@ -2,7 +2,7 @@ package com.bbs.bbs_pjt.board.dao;
 
 import java.sql.Connection;
 
-import com.bbs.bbs_pjt.board.Bbs;
+import com.bbs.bbs_pjt.board.Board;
 import com.bbs.bbs_pjt.commons.paging.Criteria;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,14 +12,14 @@ import java.util.ArrayList;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class BbsDao implements IBbsDao {
+public class BoardDao implements IBoardDao {
 	
 	private Connection conn;
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	
 	
-	public BbsDao() {
+	public BoardDao() {
 		try {
 			String dbURL="jdbc:mysql://localhost:3306/BBS?serverTimezone=UTC";
 			String dbID="root";
@@ -32,15 +32,15 @@ public class BbsDao implements IBbsDao {
 	}
 
 	@Override
-	public int bbsInsert( String userID, String bbsTitle, String bbsContent ) {
+	public int boardInsert( String userID, String boardTitle, String boardContent ) {
 		String SQL = "INSERT INTO BBS VALUES ( ?, ?, ?, ?, ?, ? )";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt(1, bbsGetNext() );
-			pstmt.setString(2, bbsTitle );
+			pstmt.setInt(1, boardGetNext() );
+			pstmt.setString(2, boardTitle );
 			pstmt.setString(3, userID );
-			pstmt.setString(4, bbsGetDate() );
-			pstmt.setString(5, bbsContent );
+			pstmt.setString(4, boardGetDate() );
+			pstmt.setString(5, boardContent );
 			pstmt.setInt(6, 1 );
 			return pstmt.executeUpdate();
 			
@@ -53,7 +53,7 @@ public class BbsDao implements IBbsDao {
 
 
 	@Override
-	public int bbsGetNext() {
+	public int boardGetNext() {
 		String SQL = "SELECT bbsID FROM BBS ORDER BY bbsID DESC";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
@@ -69,23 +69,23 @@ public class BbsDao implements IBbsDao {
 	}
 
 	@Override
-	public ArrayList<Bbs> bbsGetList(int pageNumber) {
+	public ArrayList<Board> boardGetList(int pageNumber) {
 		String SQL = "SELECT * FROM BBS WHERE bbsID < ? AND bbsAvailable = 1 ORDER BY bbsID DESC LIMIT 10";
-		ArrayList<Bbs> list = new ArrayList<Bbs>();
+		ArrayList<Board> list = new ArrayList<Board>();
 		
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt( 1,  bbsGetNext() - ( pageNumber - 1 ) * 10 );
+			pstmt.setInt( 1,  boardGetNext() - ( pageNumber - 1 ) * 10 );
 			rs = pstmt.executeQuery();
 			while( rs.next() ) {
-				Bbs bbs = new Bbs();
-				bbs.setBbsID(rs.getInt(1));
-				bbs.setBbsTitle(rs.getString(2));
-				bbs.setUserID(rs.getString(3));
-				bbs.setBbsDate(rs.getString(4));
-				bbs.setBbsContent(rs.getString(5));
-				bbs.setBbsAvailable(rs.getInt(6));
-				list.add(bbs);
+				Board board = new Board();
+				board.setBoardID(rs.getInt(1));
+				board.setBoardTitle(rs.getString(2));
+				board.setUserID(rs.getString(3));
+				board.setBoardDate(rs.getString(4));
+				board.setBoardContent(rs.getString(5));
+				board.setAvailable(rs.getInt(6));
+				list.add(board);
 			}
 		} catch ( Exception e ) {
 			e.printStackTrace();
@@ -94,11 +94,11 @@ public class BbsDao implements IBbsDao {
 	}
 
 	@Override
-	public boolean bbsGetNextPage(int pageNumber) {
+	public boolean boardGetNextPage(int pageNumber) {
 		String SQL = "SELECT * FROM BBS WHERE bbsID < ? AND bbsAvailable = 1";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt( 1,  bbsGetNext() - ( pageNumber - 1 ) * 10 );
+			pstmt.setInt( 1,  boardGetNext() - ( pageNumber - 1 ) * 10 );
 			rs = pstmt.executeQuery();
 			if ( rs.next() ) {
 				return true;
@@ -108,23 +108,22 @@ public class BbsDao implements IBbsDao {
 		}
 		return false; 
 	}
-
 	@Override
-	public Bbs getBbs(int bbsID) {
+	public Board getBoard(int boardID ) {
 		String SQL = "SELECT * FROM BBS WHERE bbsID = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt( 1, bbsID );
+			pstmt.setInt( 1, boardID );
 			rs = pstmt.executeQuery();
 			if ( rs.next() ) {
-				Bbs bbs = new Bbs();
-				bbs.setBbsID(rs.getInt(1));
-				bbs.setBbsTitle(rs.getString(2));
-				bbs.setUserID(rs.getString(3));
-				bbs.setBbsDate(rs.getString(4));
-				bbs.setBbsContent(rs.getString(5));
-				bbs.setBbsAvailable(rs.getInt(6));
-				return bbs;
+				Board board = new Board();
+				board.setBoardID(rs.getInt(1));
+				board.setBoardTitle(rs.getString(2));
+				board.setUserID(rs.getString(3));
+				board.setBoardDate(rs.getString(4));
+				board.setBoardContent(rs.getString(5));
+				board.setAvailable(rs.getInt(6));
+				return board;
 			}
 		} catch ( Exception e ) {
 			e.printStackTrace();
@@ -133,13 +132,13 @@ public class BbsDao implements IBbsDao {
 	}
 
 	@Override
-	public int bbsUpdate( int bbsID, String bbsTitle, String bbsContent ) {
+	public int boardUpdate( int boardID, String boardTitle, String boardContent ) {
 		String SQL = "UPDATE BBS SET bbsTitle = ?, bbsContent = ? WHERE bbsID = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			pstmt.setString(1, bbsTitle );
-			pstmt.setString(2, bbsContent );
-			pstmt.setInt(3, bbsID );
+			pstmt.setString(1, boardTitle );
+			pstmt.setString(2, boardContent );
+			pstmt.setInt(3, boardID );
 			return pstmt.executeUpdate();
 		} catch ( Exception e ) {
 			e.printStackTrace();
@@ -148,11 +147,11 @@ public class BbsDao implements IBbsDao {
 	}
 
 	@Override
-	public int bbsDelete( int bbsID ) {
+	public int boardDelete( int boardID ) {
 		String SQL = "UPDATE BBS SET bbsAvailable = 0 WHERE bbsID = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt(1, bbsID );
+			pstmt.setInt(1, boardID );
 			return pstmt.executeUpdate();
 		} catch ( Exception e ) {
 			e.printStackTrace();
@@ -161,7 +160,7 @@ public class BbsDao implements IBbsDao {
 	}
 	
 	@Override
-	public String bbsGetDate() {
+	public String boardGetDate() {
 		String SQL = "SELECT NOW()";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
@@ -176,10 +175,10 @@ public class BbsDao implements IBbsDao {
 	}
 
 	@Override
-	public ArrayList<Bbs> selectList( Criteria cri ) {
+	public ArrayList<Board> selectList( Criteria cri ) {
 
 		String SQL = "SELECT * FROM BBS WHERE 1=1 AND bbsID > 0 AND bbsAvailable = 1 ORDER BY bbsID DESC LIMIT ?, ?";
-		ArrayList<Bbs> list = new ArrayList<Bbs>();
+		ArrayList<Board> list = new ArrayList<Board>();
 		
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
@@ -187,14 +186,14 @@ public class BbsDao implements IBbsDao {
 			pstmt.setInt( 1, cri.getPerPageNum() );
 			rs = pstmt.executeQuery();
 			while( rs.next() ) {
-				Bbs bbs = new Bbs();
-				bbs.setBbsID(rs.getInt(1));
-				bbs.setBbsTitle(rs.getString(2));
-				bbs.setUserID(rs.getString(3));
-				bbs.setBbsDate(rs.getString(4));
-				bbs.setBbsContent(rs.getString(5));
-				bbs.setBbsAvailable(rs.getInt(6));
-				list.add(bbs);
+				Board board = new Board();
+				board.setBoardID(rs.getInt(1));
+				board.setBoardTitle(rs.getString(2));
+				board.setUserID(rs.getString(3));
+				board.setBoardDate(rs.getString(4));
+				board.setBoardContent(rs.getString(5));
+				board.setAvailable(rs.getInt(6));
+				list.add(board);
 			}
 		} catch ( Exception e ) {
 			e.printStackTrace();

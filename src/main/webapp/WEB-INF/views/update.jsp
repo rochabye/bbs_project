@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.io.PrintWriter" %>
-<%@ page import="com.bbs.bbs_pjt.board.Bbs" %>
+<%@ page import="com.bbs.bbs_pjt.board.Board" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,7 +31,7 @@
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		<ul class="nav navbar-nav" >
 			<li><a href="main.jsp">메인</a></li>
-			<li class = "active" ><a href="bbs.jsp">게시판</a></li>
+			<li class = "active" ><a href="board">게시판</a></li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right" >
 			<li class="dropdown">
@@ -49,9 +49,9 @@
 	<div class="container" >
 		<div class="row">
 		<% 
-			Bbs bbs = (Bbs)request.getAttribute( "bbs" );
+			Board board = (Board)request.getAttribute( "board" );
 		%>
-		<form method="post" action="updateAction?bbsID=<%= bbs.getBbsID() %>">
+		<form method="post" action="updateAction?boardID=<%= board.getBoardID() %>">
 			<table class="table table-striped" style="text-align:center; border: 1px solid #dddddd" >
 				<thead>
 					<tr>
@@ -61,10 +61,10 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td><input type="text" class="form-control" placeholder="글 제목" name="bbsTitle" maxlength="50" value="<%=bbs.getBbsTitle()%>"></td>
+						<td><input type="text" class="form-control" placeholder="글 제목" name="boardTitle" maxlength="50" value="<%=board.getBoardTitle()%>"></td>
 					</tr>
 					<tr>
-						<td><textarea class="form-control" placeholder="글 내용" name="bbsContent" maxlength="2048" style="height:350px;" ><%=bbs.getBbsContent()%></textarea></td>
+						<td><textarea class="form-control" placeholder="글 내용" name="boardContent" maxlength="2048" style="height:350px;" ><%=board.getBoardContent()%></textarea></td>
 					</tr>
 				</tbody>
 				
