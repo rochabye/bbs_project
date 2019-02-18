@@ -19,4 +19,6 @@ public interface IBoardDao {
 	boolean boardGetNextPage( int pageNumber );
 	Board getBoard( int boardID );
 	
+	int countPaging();
+	
 }

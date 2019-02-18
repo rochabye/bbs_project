@@ -200,8 +200,25 @@ public class BoardDao implements IBoardDao {
 		}
 		return list; 
 	}
+	
 	@Override
 	public int selectOne( Criteria cri) {
 		return 1;
+	}
+	
+	@Override
+	public int countPaging() {
+		int count = -1;
+		String SQL = "SELECT COUNT(*) FROM BBS WHERE bbsID > 0;";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			rs = pstmt.executeQuery();
+			while( rs.next() ) {
+				count = rs.getInt(1);
+			}
+		} catch ( Exception e ) {
+			e.printStackTrace();
+		}		
+		return count;
 	}
 }
