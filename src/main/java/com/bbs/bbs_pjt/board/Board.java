@@ -42,8 +42,8 @@ public class Board {
 	public int getAvailable() {
 		return available;
 	}
-	public void setAvailable(int available) {
-		available = available;
+	public void setAvailable(int available ) {
+		this.available = available;
 	}
 	
 }
