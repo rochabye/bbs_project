@@ -15,10 +15,9 @@ public interface IBoardDao {
 	int boardGetNext();
 	ArrayList<Board> boardGetList( int pageNumber );
 	ArrayList<Board> selectList( Criteria cri );
-	int selectOne( Criteria cri );
 	boolean boardGetNextPage( int pageNumber );
 	Board getBoard( int boardID );
 	
-	int countPaging();
+	int countPaging( Criteria cri );
 	
 }

@@ -183,9 +183,10 @@ public class BoardDao implements IBoardDao {
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt( 1, cri.getPageStart() );
-			pstmt.setInt( 1, cri.getPerPageNum() );
+			pstmt.setInt( 2, cri.getPerPageNum() );
 			rs = pstmt.executeQuery();
 			while( rs.next() ) {
+				
 				Board board = new Board();
 				board.setBoardID(rs.getInt(1));
 				board.setBoardTitle(rs.getString(2));
@@ -193,6 +194,7 @@ public class BoardDao implements IBoardDao {
 				board.setBoardDate(rs.getString(4));
 				board.setBoardContent(rs.getString(5));
 				board.setAvailable(rs.getInt(6));
+				System.out.println( "board: " + board.getBoardID() );
 				list.add(board);
 			}
 		} catch ( Exception e ) {
@@ -202,12 +204,7 @@ public class BoardDao implements IBoardDao {
 	}
 	
 	@Override
-	public int selectOne( Criteria cri) {
-		return 1;
-	}
-	
-	@Override
-	public int countPaging() {
+	public int countPaging( Criteria cri ) {
 		int count = -1;
 		String SQL = "SELECT COUNT(*) FROM BBS WHERE bbsID > 0;";
 		try {
