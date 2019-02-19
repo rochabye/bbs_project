@@ -49,14 +49,15 @@ public class BoardService implements IBoardService {
 		}
 		return dao.getBoard( boardID );
 	}
-
+	
+	@Override
 	public ArrayList< Board > listCriteria( Criteria criteria ) {
-		
 		return dao.selectList( criteria );
 	}
-
+	
+	@Override
 	public int listCountCriteria( Criteria criteria ) {
 		
-		return dao.selectOne( criteria );
+		return dao.countPaging( criteria );
 	}
 }
