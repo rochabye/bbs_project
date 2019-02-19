@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bbs.bbs_pjt.board.Board;
-import com.bbs.bbs_pjt.board.dao.BoardDao;
 import com.bbs.bbs_pjt.board.service.BoardService;
 import com.bbs.bbs_pjt.commons.paging.Criteria;
 import com.bbs.bbs_pjt.commons.paging.PageMaker;
@@ -23,10 +22,18 @@ public class BoardController {
 	@Autowired
 	BoardService service;
 	
-	@RequestMapping( "/board" )
-	public String moveBoard( Model model ) {
-		ArrayList< Board >list = service.getList( 1 ); 
-		model.addAttribute( "boardList", list );
+	
+	@RequestMapping( value = "/board", method = RequestMethod.GET ) 
+	public String listPage( @ModelAttribute( "cri" ) Criteria cri, Model model ) throws Exception{
+		
+		model.addAttribute( "boardList", service.listCriteria( cri ) );
+		ArrayList< Board > list = service.listCriteria( cri );
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCriteria( cri );
+		pageMaker.setTotalCount( service.listCountCriteria( cri ) );
+		
+		model.addAttribute( "pageMaker", pageMaker );
+		
 		return "board";
 	}
 	
@@ -79,20 +86,5 @@ public class BoardController {
 		service.Delete( boardID );
 		return "deleteOK";
 	}
-	
-	@RequestMapping( value = "/listPage", method = RequestMethod.GET ) 
-		public String listPage( @ModelAttribute( "cri" ) Criteria cri, Model model ) throws Exception{
-		
-			model.addAttribute( "list", service.listCriteria( cri ) );
-			
-			PageMaker pageMaker = new PageMaker();
-			pageMaker.setCriteria( cri );
-			pageMaker.setTotalCount( service.listCountCriteria( cri ) );
-			
-			model.addAttribute( "pageMaker", pageMaker );
-			
-			return "board";
-		
-	}
-	
+
 }
