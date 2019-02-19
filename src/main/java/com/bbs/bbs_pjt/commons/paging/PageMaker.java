@@ -49,14 +49,14 @@ public class PageMaker {
 		this.endPage = endPage;
 	}
 	
-	public boolean isPrev() {
+	public boolean hasPrev() {
 		return prev;
 	}
 	public void setPrev( boolean prev ) {
 		this.prev = prev;
 	}
 	
-	public boolean isNex() { 
+	public boolean hasNext() { 
 		return next;
 	}
 	public void setNext( boolean next ) {
@@ -66,7 +66,7 @@ public class PageMaker {
 	public int getDisplayPageNum() {
 		return displayPageNum;
 	}
-	public void setDisplayPageNum( int displayPageNume ) {
+	public void setDisplayPageNum( int displayPageNum ) {
 		this.displayPageNum = displayPageNum;
 	}
 	
