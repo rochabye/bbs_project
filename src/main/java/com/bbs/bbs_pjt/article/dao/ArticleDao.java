@@ -52,7 +52,7 @@ public class ArticleDao implements IArticleDao {
 
 	@Override
 	public int getNextArticleNo() {
-		String SQL = "SELECT bbsID FROM BBS ORDER BY bbsID DESC";
+		String SQL = "SELECT articleNo FROM BBS ORDER BY articleNo DESC";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			rs = pstmt.executeQuery();
@@ -68,7 +68,7 @@ public class ArticleDao implements IArticleDao {
 
 	@Override
 	public boolean hasNextPage( int pageNumber ) {
-		String SQL = "SELECT * FROM BBS WHERE bbsID < ? AND bbsAvailable = 1";
+		String SQL = "SELECT * FROM BBS WHERE articleNo < ? AND articleAvailable = 1";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt( 1,  getNextArticleNo() - ( pageNumber - 1 ) * 10 );
@@ -83,7 +83,7 @@ public class ArticleDao implements IArticleDao {
 	}
 	@Override
 	public Article getArticle(int acticleNo ) {
-		String SQL = "SELECT * FROM BBS WHERE bbsID = ?";
+		String SQL = "SELECT * FROM BBS WHERE articleNo = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt( 1, acticleNo );
@@ -106,7 +106,7 @@ public class ArticleDao implements IArticleDao {
 
 	@Override
 	public int articleUpdate( int acticleNo, String acticleTitle, String acticleContent ) {
-		String SQL = "UPDATE BBS SET bbsTitle = ?, bbsContent = ? WHERE bbsID = ?";
+		String SQL = "UPDATE BBS SET articleTitle = ?, articleContent = ? WHERE articleNo = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1, acticleTitle );
@@ -121,7 +121,7 @@ public class ArticleDao implements IArticleDao {
 
 	@Override
 	public int articleDelete( int articleNo ) {
-		String SQL = "UPDATE BBS SET bbsAvailable = 0 WHERE bbsID = ?";
+		String SQL = "UPDATE BBS SET articleAvailable = 0 WHERE articleNo = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, articleNo );
@@ -150,7 +150,7 @@ public class ArticleDao implements IArticleDao {
 	@Override
 	public ArrayList< Article > selectList( Criteria cri ) {
 
-		String SQL = "SELECT * FROM BBS WHERE 1=1 AND bbsID > 0 AND bbsAvailable = 1 ORDER BY bbsID DESC LIMIT ?, ?";
+		String SQL = "SELECT * FROM BBS WHERE 1=1 AND articleNo > 0 AND articleAvailable = 1 ORDER BY articleNo DESC LIMIT ?, ?";
 		ArrayList< Article > list = new ArrayList< Article >();
 		
 		try {
@@ -178,7 +178,7 @@ public class ArticleDao implements IArticleDao {
 	@Override
 	public int countPaging( Criteria cri ) {
 		int count = -1;
-		String SQL = "SELECT COUNT(*) FROM BBS WHERE bbsID > 0 AND bbsAvailable = 1;";
+		String SQL = "SELECT COUNT(*) FROM BBS WHERE articleNo > 0 AND articleAvailable = 1;";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			rs = pstmt.executeQuery();
