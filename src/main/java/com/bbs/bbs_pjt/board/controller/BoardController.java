@@ -24,8 +24,10 @@ public class BoardController {
 	
 	
 	@RequestMapping( value = "/board", method = RequestMethod.GET ) 
-	public String listPage( @ModelAttribute( "cri" ) Criteria cri, Model model ) throws Exception{
+	public String Board( @ModelAttribute( "cri" ) Criteria cri, Model model, 
+			@RequestParam(value="page", required = false, defaultValue="0") int page ) throws Exception{
 		
+		System.out.println( cri.toString() );
 		model.addAttribute( "boardList", service.listCriteria( cri ) );
 		ArrayList< Board > list = service.listCriteria( cri );
 		PageMaker pageMaker = new PageMaker();
