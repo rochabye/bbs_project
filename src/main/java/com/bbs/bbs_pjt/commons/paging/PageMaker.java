@@ -14,17 +14,17 @@ public class PageMaker {
 	
 	
 	private void calcData() { 
-		endPage = ( int ) ( Math.ceil( criteria.getPage() / (double) displayPageNum ) * displayPageNum );
-		startPage = ( endPage - displayPageNum ) + 1;
+		setEndPage( ( int ) ( Math.ceil( criteria.getPage() / (double) displayPageNum ) * displayPageNum ) );
+		setStartPage( ( endPage - displayPageNum ) + 1 );
 		
 		int tempEndPage = ( int ) ( Math.ceil( totalCount / ( double) criteria.getPerPageNum() ) );
 		
-		if ( endPage > tempEndPage ) {
-			endPage = tempEndPage;
+		if ( getEndPage() > tempEndPage ) {
+			setEndPage( tempEndPage );
 		}
 		
-		prev = startPage == 1 ? false : true;
-		next = endPage * criteria.getPerPageNum() >= totalCount ? false : true;
+		prev = getStartPage() == 1 ? false : true;
+		next = getEndPage() * criteria.getPerPageNum() >= totalCount ? false : true;
 	
 	}
 	public void setCriteria( Criteria criteria ) {
@@ -47,6 +47,13 @@ public class PageMaker {
 	}
 	public void setEndPage( int endPage ) {
 		this.endPage = endPage;
+	}
+	
+	public int getStartPage() {
+		return startPage;
+	}
+	public void setStartPage( int startPage ) {
+		this.startPage = startPage;
 	}
 	
 	public boolean hasPrev() {
