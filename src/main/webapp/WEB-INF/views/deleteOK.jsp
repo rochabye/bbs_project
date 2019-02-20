@@ -58,7 +58,7 @@
 				data-toggle="dropdown" role="button" aria-haspopup="true"
 				aria-expanded="false" >회원관리 <span class="caret"></span></a>
 			<ul class="dropdown-menu">
-				<li><a href="logoutAction">로그아웃</a></li>
+				<li><a href="logout">로그아웃</a></li>
 			</ul>
 			</li>
 		</ul>
