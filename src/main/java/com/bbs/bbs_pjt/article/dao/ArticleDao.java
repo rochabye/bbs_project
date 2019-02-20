@@ -1,8 +1,8 @@
-package com.bbs.bbs_pjt.board.dao;
+package com.bbs.bbs_pjt.article.dao;
 
 import java.sql.Connection;
 
-import com.bbs.bbs_pjt.board.Board;
+import com.bbs.bbs_pjt.article.Article;
 import com.bbs.bbs_pjt.commons.paging.Criteria;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,14 +12,14 @@ import java.util.ArrayList;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class BoardDao implements IBoardDao {
+public class ArticleDao implements IArticleDao {
 	
 	private Connection conn;
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	
 	
-	public BoardDao() {
+	public ArticleDao() {
 		try {
 			String dbURL="jdbc:mysql://localhost:3306/BBS?serverTimezone=UTC";
 			String dbID="root";
@@ -32,15 +32,15 @@ public class BoardDao implements IBoardDao {
 	}
 
 	@Override
-	public int boardInsert( String userID, String boardTitle, String boardContent ) {
+	public int articleInsert( String userID, String articleTitle, String articleContent ) {
 		String SQL = "INSERT INTO BBS VALUES ( ?, ?, ?, ?, ?, ? )";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt(1, boardGetNext() );
-			pstmt.setString(2, boardTitle );
+			pstmt.setInt(1, getNextArticleNo() );
+			pstmt.setString(2, articleTitle );
 			pstmt.setString(3, userID );
-			pstmt.setString(4, boardGetDate() );
-			pstmt.setString(5, boardContent );
+			pstmt.setString(4, getArticleDate() );
+			pstmt.setString(5, articleContent );
 			pstmt.setInt(6, 1 );
 			return pstmt.executeUpdate();
 			
@@ -50,10 +50,8 @@ public class BoardDao implements IBoardDao {
 		return -1;
 	}
 
-
-
 	@Override
-	public int boardGetNext() {
+	public int getNextArticleNo() {
 		String SQL = "SELECT bbsID FROM BBS ORDER BY bbsID DESC";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
@@ -69,36 +67,11 @@ public class BoardDao implements IBoardDao {
 	}
 
 	@Override
-	public ArrayList<Board> boardGetList(int pageNumber) {
-		String SQL = "SELECT * FROM BBS WHERE bbsID < ? AND bbsAvailable = 1 ORDER BY bbsID DESC LIMIT 10";
-		ArrayList<Board> list = new ArrayList<Board>();
-		
-		try {
-			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt( 1,  boardGetNext() - ( pageNumber - 1 ) * 10 );
-			rs = pstmt.executeQuery();
-			while( rs.next() ) {
-				Board board = new Board();
-				board.setBoardID(rs.getInt(1));
-				board.setBoardTitle(rs.getString(2));
-				board.setUserID(rs.getString(3));
-				board.setBoardDate(rs.getString(4));
-				board.setBoardContent(rs.getString(5));
-				board.setAvailable(rs.getInt(6));
-				list.add(board);
-			}
-		} catch ( Exception e ) {
-			e.printStackTrace();
-		}
-		return list; 
-	}
-
-	@Override
-	public boolean boardGetNextPage(int pageNumber) {
+	public boolean hasNextPage( int pageNumber ) {
 		String SQL = "SELECT * FROM BBS WHERE bbsID < ? AND bbsAvailable = 1";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt( 1,  boardGetNext() - ( pageNumber - 1 ) * 10 );
+			pstmt.setInt( 1,  getNextArticleNo() - ( pageNumber - 1 ) * 10 );
 			rs = pstmt.executeQuery();
 			if ( rs.next() ) {
 				return true;
@@ -109,21 +82,21 @@ public class BoardDao implements IBoardDao {
 		return false; 
 	}
 	@Override
-	public Board getBoard(int boardID ) {
+	public Article getArticle(int acticleNo ) {
 		String SQL = "SELECT * FROM BBS WHERE bbsID = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt( 1, boardID );
+			pstmt.setInt( 1, acticleNo );
 			rs = pstmt.executeQuery();
 			if ( rs.next() ) {
-				Board board = new Board();
-				board.setBoardID(rs.getInt(1));
-				board.setBoardTitle(rs.getString(2));
-				board.setUserID(rs.getString(3));
-				board.setBoardDate(rs.getString(4));
-				board.setBoardContent(rs.getString(5));
-				board.setAvailable(rs.getInt(6));
-				return board;
+				Article acticle = new Article();
+				acticle.setArticleNo(rs.getInt(1));
+				acticle.setArticleTitle(rs.getString(2));
+				acticle.setUserID(rs.getString(3));
+				acticle.setArticleDate(rs.getString(4));
+				acticle.setArticleContent(rs.getString(5));
+				acticle.setAvailable(rs.getInt(6));
+				return acticle;
 			}
 		} catch ( Exception e ) {
 			e.printStackTrace();
@@ -132,13 +105,13 @@ public class BoardDao implements IBoardDao {
 	}
 
 	@Override
-	public int boardUpdate( int boardID, String boardTitle, String boardContent ) {
+	public int articleUpdate( int acticleNo, String acticleTitle, String acticleContent ) {
 		String SQL = "UPDATE BBS SET bbsTitle = ?, bbsContent = ? WHERE bbsID = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			pstmt.setString(1, boardTitle );
-			pstmt.setString(2, boardContent );
-			pstmt.setInt(3, boardID );
+			pstmt.setString(1, acticleTitle );
+			pstmt.setString(2, acticleContent );
+			pstmt.setInt(3, acticleNo );
 			return pstmt.executeUpdate();
 		} catch ( Exception e ) {
 			e.printStackTrace();
@@ -147,11 +120,11 @@ public class BoardDao implements IBoardDao {
 	}
 
 	@Override
-	public int boardDelete( int boardID ) {
+	public int articleDelete( int articleNo ) {
 		String SQL = "UPDATE BBS SET bbsAvailable = 0 WHERE bbsID = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt(1, boardID );
+			pstmt.setInt(1, articleNo );
 			return pstmt.executeUpdate();
 		} catch ( Exception e ) {
 			e.printStackTrace();
@@ -160,7 +133,7 @@ public class BoardDao implements IBoardDao {
 	}
 	
 	@Override
-	public String boardGetDate() {
+	public String getArticleDate() {
 		String SQL = "SELECT NOW()";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
@@ -175,10 +148,10 @@ public class BoardDao implements IBoardDao {
 	}
 
 	@Override
-	public ArrayList<Board> selectList( Criteria cri ) {
+	public ArrayList< Article > selectList( Criteria cri ) {
 
 		String SQL = "SELECT * FROM BBS WHERE 1=1 AND bbsID > 0 AND bbsAvailable = 1 ORDER BY bbsID DESC LIMIT ?, ?";
-		ArrayList<Board> list = new ArrayList<Board>();
+		ArrayList< Article > list = new ArrayList< Article >();
 		
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
@@ -187,14 +160,14 @@ public class BoardDao implements IBoardDao {
 			rs = pstmt.executeQuery();
 			while( rs.next() ) {
 				
-				Board board = new Board();
-				board.setBoardID(rs.getInt(1));
-				board.setBoardTitle(rs.getString(2));
-				board.setUserID(rs.getString(3));
-				board.setBoardDate(rs.getString(4));
-				board.setBoardContent(rs.getString(5));
-				board.setAvailable(rs.getInt(6));
-				list.add(board);
+				Article article = new Article();
+				article.setArticleNo(rs.getInt(1));
+				article.setArticleTitle(rs.getString(2));
+				article.setUserID(rs.getString(3));
+				article.setArticleDate(rs.getString(4));
+				article.setArticleContent(rs.getString(5));
+				article.setAvailable(rs.getInt(6));
+				list.add(article);
 			}
 		} catch ( Exception e ) {
 			e.printStackTrace();

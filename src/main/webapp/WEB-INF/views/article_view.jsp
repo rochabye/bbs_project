@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.bbs.bbs_pjt.board.Board" %>
+<%@ page import="com.bbs.bbs_pjt.article.Article" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.bbs.bbs_pjt.commons.paging.PageMaker" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,8 +30,8 @@
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		<ul class="nav navbar-nav" >
-			<li><a href="main">메인</a></li>
-			<li class = "active" ><a href="board">게시판</a></li>
+			<li class = "active" ><a href="main">메인</a></li>
+			<li><a href="list">게시판</a></li>
 		</ul>
 		<% 
 		if ( userID == null ) 
@@ -69,68 +68,45 @@
 		%>
 		</div>
 	</nav>
-		<div class="container" >
+	<div class="container" >
 		<div class="row">
 			<table class="table table-striped" style="text-align:center; border: 1px solid #dddddd" >
 				<thead>
 					<tr>
-						<th style="background-color: #eeeeee; text-align: center;"> 번호 </th>
-						<th style="background-color: #eeeeee; text-align: center;"> 제목 </th>
-						<th style="background-color: #eeeeee; text-align: center;"> 작성자 </th>
-						<th style="background-color: #eeeeee; text-align: center;"> 작성일 </th>
+						<th colspan="3" style="background-color: #eeeeee; text-align: center;">게시판 글 보기</th>
 					</tr>
-					
 				</thead>
 				<tbody>
 					<%
-						ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("boardList");
-						for( int i = 0; i < list.size(); ++i ){
+						Article article = (Article)request.getAttribute("article");
 					%>
 					<tr>
-						<td><%= list.get(i).getBoardID() %></td>
-						<td><a href="posting_view?boardID=<%=list.get(i).getBoardID() %>" value="<%=list.get(i).getBoardID() %>"> <%= list.get(i).getBoardTitle().replaceAll( "<", "&lt;" ).replaceAll( ">", "&gt;" ).replaceAll( " ", "&nbsp;" ).replaceAll( "\n", "<br>") %></a></td>
-						<td><%= list.get(i).getUserID() %></td>
-						<td><%= list.get(i).getBoardDate().substring(0, 11) + list.get(i).getBoardDate().substring(11,13) + "시" + list.get(i).getBoardDate().substring(14,16) + "분" %></td>
+						<td style="width: 20%;" >글 제목 </td>
+						<td colspan="2"> <%=article.getArticleTitle().replaceAll( "<", "&lt;" ).replaceAll( ">", "&gt;" ).replaceAll( " ", "&nbsp;" ).replaceAll( "\n", "<br>") %> </td>
 					</tr>
-					<% 
-						}
-					%> 
+					<tr>
+						<td> 작성자 </td>
+						<td colspan="2" ><%= article.getUserID() %> </td>
+					</tr>
+					<tr>
+						<td> 작성일  </td>
+						<td colspan="2"><%= article.getArticleDate().substring(0, 11) + article.getArticleDate().substring(11,13) + "시" + article.getArticleDate().substring(14,16) + "분" %></td>
+					</tr>
+					<tr>
+						<td> 내용 </td>
+						<td colspan="2" style="min-height:200px; text-align: left;" ><%= article.getArticleContent().replaceAll( "<", "&lt;" ).replaceAll( ">", "&gt;" ).replaceAll( " ", "&nbsp;" ).replaceAll( "\n", "<br>") %></td>
+					</tr>
 				</tbody>
 			</table>
-			<% 
-			if ( userID != null )
-			{
-			%>
-				<a href="write" class="btn btn-primary pull-right"> 글쓰기</a>
+			<a href="list" class="btn btn-primary" > 목록 </a>
 			<%
-			}
+				if ( userID != null && userID.equals( article.getUserID() ) ) {
 			%>
-			
-			<% 
-				PageMaker pageMaker = (PageMaker)request.getAttribute( "pageMaker" );
+					<a href="update?articleNo=<%= article.getArticleNo() %>" class="btn btn-primary"> 수정</a>
+					<a onclick="return confirm('정말로 삭제하시겠습니까?')" href="delete?articleNo=<%= article.getArticleNo() %>" class="btn btn-primary"> 삭제 </a>			
+			<%
+				}
 			%>
-			<nav aria-label="Page navigation">
-			  <ul class="pagination justify-content-center"> <!-- 안됨 --> 
-			    <li class="page-item">
-			      <a class="page-link" href="#" aria-label="Previous" <%= pageMaker.hasPrev() ? null : "disabled" %>>
-			        <span aria-hidden="true">&laquo;</span>
-			        <span class="sr-only">Previous</span>
-			      </a>
-			    </li>
-			    <% for( int i = pageMaker.getStartPage(); i <= pageMaker.getEndPage(); ++i ) { %>
-			    <li class="page-item"><a class="page-link" href="board?page=<%=i%>"><%=i %></a></li>
-			    <% } %>
-			    
-			    <li class="page-item">
-			      <a class="page-link" href="#" aria-label="Next" <%= pageMaker.hasNext() ? null : "disabled" %>>
-			        <span aria-hidden="true">&raquo;</span>
-			        <span class="sr-only">Next</span>
-			      </a>
-			    </li>
-			  </ul>
-			</nav>
-			
-			
 		</div>
 	</div>
 	

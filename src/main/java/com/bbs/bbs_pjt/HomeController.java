@@ -21,13 +21,11 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home() {
-		logger.debug( "home" );
 		return "index";
 	}
 	
 	@RequestMapping( value = "/main", method = RequestMethod.GET  )
 	public String main() {
-		logger.debug( "main" );
 		return "main";
 	}
 }
