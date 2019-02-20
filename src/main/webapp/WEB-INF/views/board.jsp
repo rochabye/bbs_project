@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="com.bbs.bbs_pjt.board.Board" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="com.bbs.bbs_pjt.commons.paging.PageMaker" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -105,19 +106,23 @@
 			}
 			%>
 			
+			<% 
+				PageMaker pageMaker = (PageMaker)request.getAttribute( "pageMaker" );
+			%>
 			<nav aria-label="Page navigation">
 			  <ul class="pagination justify-content-center"> <!-- 안됨 --> 
 			    <li class="page-item">
-			      <a class="page-link" href="#" aria-label="Previous">
+			      <a class="page-link" href="#" aria-label="Previous" <%= pageMaker.hasPrev() ? null : "disabled" %>>
 			        <span aria-hidden="true">&laquo;</span>
 			        <span class="sr-only">Previous</span>
 			      </a>
 			    </li>
-			    <li class="page-item"><a class="page-link" href="#">1</a></li>
-			    <li class="page-item"><a class="page-link" href="#">2</a></li>
-			    <li class="page-item"><a class="page-link" href="#">3</a></li>
+			    <% for( int i = pageMaker.getStartPage(); i <= pageMaker.getEndPage(); ++i ) { %>
+			    <li class="page-item"><a class="page-link" href="board?page=<%=i%>"><%=i %></a></li>
+			    <% } %>
+			    
 			    <li class="page-item">
-			      <a class="page-link" href="#" aria-label="Next">
+			      <a class="page-link" href="#" aria-label="Next" <%= pageMaker.hasNext() ? null : "disabled" %>>
 			        <span aria-hidden="true">&raquo;</span>
 			        <span class="sr-only">Next</span>
 			      </a>
