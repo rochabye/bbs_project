@@ -178,7 +178,7 @@ public class ArticleDao implements IArticleDao {
 	@Override
 	public int countPaging( Criteria cri ) {
 		int count = -1;
-		String SQL = "SELECT COUNT(*) FROM BBS WHERE bbsID > 0;";
+		String SQL = "SELECT COUNT(*) FROM BBS WHERE bbsID > 0 AND bbsAvailable = 1;";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			rs = pstmt.executeQuery();
