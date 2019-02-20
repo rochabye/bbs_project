@@ -194,7 +194,6 @@ public class BoardDao implements IBoardDao {
 				board.setBoardDate(rs.getString(4));
 				board.setBoardContent(rs.getString(5));
 				board.setAvailable(rs.getInt(6));
-				System.out.println( "board: " + board.getBoardID() );
 				list.add(board);
 			}
 		} catch ( Exception e ) {
