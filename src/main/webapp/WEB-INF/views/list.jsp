@@ -118,7 +118,7 @@
 			      </a>
 			    </li>
 			    <% for( int i = pageMaker.getStartPage(); i <= pageMaker.getEndPage(); ++i ) { %>
-			    <li class="page-item"><a class="page-link" href="list?page=<%=i%>"><%=i %></a></li>
+			    <li class="page-item"><a class="page-link" href="list?page=<%=i%>&perPageNum=8"><%=i %></a></li>
 			    <% } %>
 			    
 			    <li class="page-item">

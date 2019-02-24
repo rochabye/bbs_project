@@ -25,8 +25,9 @@ public class ArticleController {
 	
 	@RequestMapping( value = "/list", method = RequestMethod.GET ) 
 	public String list( @ModelAttribute( "cri" ) Criteria cri, Model model, 
-			@RequestParam(value="page", required = false, defaultValue="0") int page ) throws Exception{
-		
+			@RequestParam(value="page", required = false, defaultValue="0") int page, 
+			@RequestParam(value="perPageNum", required = false, defaultValue="0") int perPageNum ) throws Exception{
+
 		System.out.println( cri.toString() );
 		model.addAttribute( "articleList", service.listCriteria( cri ) );
 		ArrayList< Article > list = service.listCriteria( cri );
@@ -47,7 +48,7 @@ public class ArticleController {
 	}
 	
 	@RequestMapping(value = "/write", method = RequestMethod.GET )
-	public String write( Model model, Article articleNo, HttpSession session ) {
+	public String write( Article articleNo, HttpSession session ) {
 		
 		return "write";
 	}
