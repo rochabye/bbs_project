@@ -1,14 +1,16 @@
 package com.bbs.bbs_pjt.reply.dao;
 
-import java.util.List;
+import java.util.ArrayList;
 
-import com.bbs.bbs_pjt.reply.dao.ReplyDao;
+import com.bbs.bbs_pjt.reply.Reply;
 
 public interface IReplyDao {
 	
-	List<ReplyDao> list(Integer articleNo) throws Exception;
+	ArrayList< Reply > list(Integer articleNo) throws Exception;
 
-	void create(ReplyDao replyDao) throws Exception;
-    void update(ReplyDao replyDao) throws Exception;
-    void delete(Integer replyNo) throws Exception;
+	int insert( Reply reply ) throws Exception;
+	int update( Reply reply ) throws Exception;
+    int delete( int replyNo ) throws Exception;
+    
+    String getDate() throws Exception;
 }
