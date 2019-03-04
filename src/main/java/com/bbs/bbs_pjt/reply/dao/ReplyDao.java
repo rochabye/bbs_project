@@ -41,11 +41,11 @@ public class ReplyDao implements IReplyDao{
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, reply.getArticleNo() );
-			pstmt.setInt(2, reply.getReplyNo() );
+			pstmt.setInt(2, getNextReplyNo() );
 			pstmt.setString(3, reply.getReplyText() );
 			pstmt.setString(4, reply.getReplyWriter() );
 			pstmt.setString(5, getDate() );
-			pstmt.setString(6, reply.getUpdateDate().toString() );
+			pstmt.setString(6, getDate() );
 			return pstmt.executeUpdate();
 			
 		} catch ( Exception e ) {
@@ -95,4 +95,22 @@ public class ReplyDao implements IReplyDao{
 		}
 		return ""; // error 
 	}
+    
+    @Override 
+    public int getNextReplyNo() {
+   
+    	String SQL = "SELECT replyNo FROM reply ORDER BY replyNo DESC";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			rs = pstmt.executeQuery();
+			if ( rs.next() ) {
+				return rs.getInt(1) + 1;
+			}
+			return 1; // if this first
+		} catch ( Exception e ) {
+			e.printStackTrace();
+		}
+		return -1; // error 
+    	
+    }
 }

@@ -11,6 +11,6 @@ public interface IReplyDao {
 	int insert( Reply reply ) throws Exception;
 	int update( Reply reply ) throws Exception;
     int delete( int replyNo ) throws Exception;
-    
+    int getNextReplyNo();
     String getDate() throws Exception;
 }
