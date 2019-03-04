@@ -100,8 +100,13 @@
 			</table>
 
 			<div class="row">
-			<form method="post" action="replyAction">
+			<form method="post" action="replyAction?articleNo=<%=article.getArticleNo()%>">
 				<table class="table table-striped" style="text-align:left; border: 1px solid #dddddd" >
+					<thead>
+					<tr>
+					<th colspan="2" >작성자 : <%= userID %></th>
+					</tr>
+					</thead>
 					<tbody>
 						<tr>
 							<td>
@@ -115,12 +120,12 @@
 			</form>
 			</div>
 		</div>
-		<a href="list" class="btn btn-primary" > 목록 </a>
+		<a href="list" class="btn btn-primary pull-right" > 목록 </a>
 		<%
 			if ( userID != null && userID.equals( article.getUserID() ) ) {
 		%>
-				<a href="update?articleNo=<%= article.getArticleNo() %>" class="btn btn-primary"> 수정</a>
-				<a onclick="return confirm('정말로 삭제하시겠습니까?')" href="delete?articleNo=<%= article.getArticleNo() %>" class="btn btn-primary"> 삭제 </a>			
+				<a href="update?articleNo=<%= article.getArticleNo() %>" class="btn btn-primary pull-right"> 수정</a>
+				<a onclick="return confirm('정말로 삭제하시겠습니까?')" href="delete?articleNo=<%= article.getArticleNo() %>" class="btn btn-primary pull-right"> 삭제 </a>			
 		<%
 			}
 		%>
