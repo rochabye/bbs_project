@@ -98,17 +98,34 @@
 					</tr>
 				</tbody>
 			</table>
-			<a href="list" class="btn btn-primary" > 목록 </a>
-			<%
-				if ( userID != null && userID.equals( article.getUserID() ) ) {
-			%>
-					<a href="update?articleNo=<%= article.getArticleNo() %>" class="btn btn-primary"> 수정</a>
-					<a onclick="return confirm('정말로 삭제하시겠습니까?')" href="delete?articleNo=<%= article.getArticleNo() %>" class="btn btn-primary"> 삭제 </a>			
-			<%
-				}
-			%>
+
+			<div class="row">
+			<form method="post" action="replyAction">
+				<table class="table table-striped" style="text-align:left; border: 1px solid #dddddd" >
+					<tbody>
+						<tr>
+							<td>
+							<input type="text" class="form-control" placeholder="댓글을 남겨주세요." name="replyText" maxlength="200" style="height:80px;">
+							<input type="submit" class="btn btn-primary pull-right" value="댓글 등록">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				 
+			</form>
+			</div>
 		</div>
+		<a href="list" class="btn btn-primary" > 목록 </a>
+		<%
+			if ( userID != null && userID.equals( article.getUserID() ) ) {
+		%>
+				<a href="update?articleNo=<%= article.getArticleNo() %>" class="btn btn-primary"> 수정</a>
+				<a onclick="return confirm('정말로 삭제하시겠습니까?')" href="delete?articleNo=<%= article.getArticleNo() %>" class="btn btn-primary"> 삭제 </a>			
+		<%
+			}
+		%>
 	</div>
+	            
 	
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/bootstrap.js"> </script>
