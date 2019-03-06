@@ -30,7 +30,6 @@ public class ArticleController {
 
 		System.out.println( cri.toString() );
 		model.addAttribute( "articleList", service.listCriteria( cri ) );
-		ArrayList< Article > list = service.listCriteria( cri );
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCriteria( cri );
 		pageMaker.setTotalCount( service.listCountCriteria( cri ) );
